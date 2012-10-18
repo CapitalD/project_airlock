@@ -1,0 +1,44 @@
+html {
+	font-family: Helvetica;
+}
+
+h1 {
+	font-size: 2em;
+	text-align: center;
+	padding: 10px;
+}
+
+h2 {
+	color: #fff;
+	background-color: #666;
+	padding: 10px;
+	margin-top: 10px;
+	
+}
+
+h3 {
+	font-size: 1em;
+	font-style: italic;
+	color: #999;
+}
+
+#chart {
+	height: 350px;
+}
+
+#current_temp {
+}
+
+#current_temp_circle {
+	display: table-cell;
+	text-align: center;
+	vertical-align: middle;
+	height: 140px;
+	width: 140px;
+	border-radius: 140px;
+	border: 1px solid #000;
+}
+
+#temp_container {
+	margin: 10px 0;
+}

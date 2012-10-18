@@ -10,24 +10,25 @@
 	<script type="text/javascript" src="javascript/jqplot.plugins/jqplot.categoryAxisRenderer.min.js"></script>
 	<script type="text/javascript" src="javascript/jqplot.plugins/jqplot.canvasOverlay.min.js"></script>
 	<script type="text/javascript" src="javascript/jqplot.plugins/jqplot.dateAxisRenderer.min.js"></script>
+	<script type="text/javascript" src="javascript/jqplot.plugins/jqplot.cursor.min.js"></script>
 	<script type="text/javascript" src="minute_data.js"></script>
 	<script type="text/javascript">
 
 	$(document).ready(function() {
 		
-		target_temps = [[1,14],[2,1],[3,6],[4,9],[5,9],[6,9],[7,9],[8,9],[9,9],[10,9],[11,9],[12,9],[13,9],[14,9]/*,[15,9],[16,9],[17,9],[18,8.5],[19,8],[20,7.5],[21,7],[22,6.5],[23,6],[24,5.5],[25,5],[26,4.5],[27,4],[28,3.5],[29,3],[30,2.5],[31,2],[32,1.5],[33,1],[34,1],[35,1],[36,1],[37,1],[38,1],[39,1],[40,1],[41,1],[42,1],[43,1],[44,1],[45,1],[46,1],[47,1],[48,1],[49,1],[50,1],[51,1],[52,1],[53,1],[54,1],[55,1],[56,1],[57,1],[58,1],[59,1],[60,1],[61,1],[62,1],[63,1],[64,1],[65,1],[66,1],[67,1],[68,1],[69,1],[70,1],[71,1],[72,1],[73,1],[74,1],[75,1]*/];
-		actual_temps = [[1,13],[2,3],[3,6],[4,9.5],[5,9]];
-//		minute_data = [['2012-10-19 12:22AM',7],['2012-10-19 12:23AM',8],['2012-10-19 12:24AM',9],['2012-10-19 12:25AM',10],['2012-10-19 12:26AM',6],['2012-10-19 12:27AM',6],['2012-10-19 12:28AM',8],['2012-10-19 12:29AM',10],['2012-10-19 12:30AM',6],['2012-10-19 12:31AM',9],['2012-10-19 12:32AM',10],['2012-10-19 12:33AM',9],['2012-10-19 12:34AM',8],['2012-10-19 12:35AM',9],['2012-10-19 12:36AM',6],['2012-10-19 12:37AM',6],['2012-10-19 12:38AM',9],['2012-10-19 12:39AM',10],['2012-10-19 12:40AM',10],['2012-10-19 12:41AM',7],['2012-10-19 12:42AM',7],['2012-10-19 12:43AM',9],['2012-10-19 12:44AM',6],['2012-10-19 12:45AM',6],['2012-10-19 12:46AM',6],['2012-10-19 12:47AM',9],['2012-10-19 12:48AM',8],['2012-10-19 12:49AM',7],['2012-10-19 12:50AM',10],['2012-10-19 12:51AM',10],['2012-10-19 12:52AM',6],['2012-10-19 12:53AM',7],['2012-10-19 12:54AM',8],['2012-10-19 12:55AM',9],['2012-10-19 12:56AM',6],['2012-10-19 12:57AM',6],['2012-10-19 12:58AM',10],['2012-10-19 12:59AM',7],['2012-10-19 1:00AM',6],['2012-10-19 1:01AM',9],['2012-10-19 1:02AM',9]];
-		
-		$.jqplot('chartdiv',  [minute_data], {
+		targetPlot = $.jqplot('chart1',  [minute_data], {
 			title:'Matt\'s Pilsner',
-//			axesDefaults: {
-//				tickRenderer: $.jqplot.CanvasAxisTickRenderer,
-//		        tickOptions: {
-//					angle: -90,
-//					fontSize: '10pt'
-//		        }
-//		    },
+			axesDefaults: {
+				useSeriesColor: true,
+				rendererOptions: {
+					alignTicks: true
+				}
+		    },
+			cursor: {
+				show: true,
+				zoom: true,
+				showTooltip: false
+			},
 			axes:{ 
 				yaxis:{
 					min: 0,
@@ -56,16 +57,10 @@
 			},
 			series:[
 				{
-					label: 'Target',
+					label: 'Actual',
 					lineWidth: 1,
 					color:'#f00',
 					showMarker: false
-				},
-				{
-					label: 'Actual',
-					lineWidth: 1,
-					color:'#00f',
-					showMarker: true
 				}
 			],
 			legend: {
@@ -73,6 +68,63 @@
 				location: 'se'
 			}
 		});
+		
+		controllerPlot = $.jqplot('chart2',  [minute_data], {
+			axesDefaults: {
+				useSeriesColor: true,
+				rendererOptions: {
+					alignTicks: true
+				}
+		    },
+			cursor: {
+				show: true,
+				zoom: true,
+				showTooltip: false,
+				constrainZoomTo: 'x'
+			},
+			axes:{ 
+				yaxis:{
+					min: 0,
+					max: 12,
+					label: 'Temp (°C)',
+					labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+				},
+				xaxis: {
+					label: 'Days',
+					renderer:$.jqplot.DateAxisRenderer,
+			        tickOptions:{formatString:'%#d %b'},
+			        min:'18 Oct 2012',
+			        tickInterval:'1 day'
+				}
+			},
+			canvasOverlay: {
+				show: true,
+				objects: [
+					{
+						dashedVerticalLine: {
+							name: 'today',
+							x: 5,
+							lineWidth: 2,
+							shaddow: false
+						}
+					}]
+			},
+			series:[
+				{
+					label: 'Actual',
+					lineWidth: 1,
+					color:'#f00',
+					showMarker: false
+				}
+			],
+			legend: {
+				show: true,
+				location: 'se'
+			}
+		});
+		
+		$.jqplot.Cursor.zoomProxy(targetPlot, controllerPlot);
+		$.jqplot._noToImageButton = true;
 
 	});
 	
@@ -128,8 +180,13 @@
 		clear: both;
 	}
 	
-	 #chartdiv {
+	 #chart1 {
 		height:500px;
+		width: 940px;
+	}
+	
+	 #chart2 {
+		height:200px;
 		width: 940px;
 	}
 	
@@ -138,10 +195,10 @@
 <body>
 
 <div id="page_container">
-	<h1>Heading</h1>
-	<h3>Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae dui tellus. Phasellus erat ligula, hendrerit vel congue in, rutrum nec nulla. Nunc eget purus velit. Vestibulum interdum diam ut purus scelerisque at feugiat ante auctor. Morbi sit amet dolor ac risus adipiscing tincidunt. Ut convallis gravida nisl sit amet interdum. Aliquam hendrerit magna est. Proin pharetra venenatis ipsum quis dictum. Nam eget metus ipsum. Sed nec mattis nisi. Etiam id urna ante. Nulla facilisi. Nulla cursus iaculis egestas. Sed mollis varius fermentum. </h3>
+	<h1>Zoomable Graph Test</h1>
 	
-	<div id="chartdiv"></div>
+	<div id="chart1"></div>
+	<div id="chart2"></div>
 	
 </div>	
 

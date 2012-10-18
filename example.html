@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<script type="text/javascript" src="javascript/jQuery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="javascript/jquery.jqplot.min.js"></script>
+	<script type="text/javascript" src="javascript/jqplot.plugins/jqplot.canvasTextRenderer.min.js"></script>
+	<script type="text/javascript" src="javascript/jqplot.plugins/jqplot.canvasAxisTickRenderer.min.js"></script>
+	<script type="text/javascript" src="javascript/jqplot.plugins/jqplot.canvasAxisLabelRenderer.min.js"></script>
+	<script type="text/javascript" src="javascript/jqplot.plugins/jqplot.categoryAxisRenderer.min.js"></script>
+	<script type="text/javascript" src="javascript/jqplot.plugins/jqplot.canvasOverlay.min.js"></script>
+	<script type="text/javascript">
+
+	$(document).ready(function() {
+		
+		target_temps = [[1,14],[2,1],[3,6],[4,9],[5,9],[6,9],[7,9],[8,9],[9,9],[10,9],[11,9],[12,9],[13,9],[14,9]/*,[15,9],[16,9],[17,9],[18,8.5],[19,8],[20,7.5],[21,7],[22,6.5],[23,6],[24,5.5],[25,5],[26,4.5],[27,4],[28,3.5],[29,3],[30,2.5],[31,2],[32,1.5],[33,1],[34,1],[35,1],[36,1],[37,1],[38,1],[39,1],[40,1],[41,1],[42,1],[43,1],[44,1],[45,1],[46,1],[47,1],[48,1],[49,1],[50,1],[51,1],[52,1],[53,1],[54,1],[55,1],[56,1],[57,1],[58,1],[59,1],[60,1],[61,1],[62,1],[63,1],[64,1],[65,1],[66,1],[67,1],[68,1],[69,1],[70,1],[71,1],[72,1],[73,1],[74,1],[75,1]*/];
+		actual_temps = [[1,13],[2,3],[3,6],[4,9.5],[5,9]];
+		
+		$.jqplot('chart',  [target_temps, actual_temps], {
+			axes:{ 
+				yaxis:{
+					min: 0,
+					label: 'Temp (°C)',
+					labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+				},
+				xaxis: {
+					min: 0,
+					label: 'Days',
+					labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+				}
+			},
+			canvasOverlay: {
+				show: true,
+				objects: [
+					{
+						dashedVerticalLine: {
+							name: 'today',
+							x: 5,
+							lineWidth: 2,
+							shaddow: false
+						}
+					}]
+			},
+			series:[
+				{
+					label: 'Target',
+					lineWidth: 1,
+					color:'#f00',
+					showMarker: false
+				},
+				{
+					label: 'Actual',
+					lineWidth: 1,
+					color:'#00f',
+					showMarker: true
+				}
+			],
+			legend: {
+				show: true,
+				location: 'se'
+			}
+		});
+
+	});
+	
+	</script>
+
+	<link rel="stylesheet" href="stylesheets/reset.css">
+	<link rel="stylesheet" href="stylesheets/960.css">
+	<link rel="stylesheet" href="stylesheets/jquery.jqplot.min.css">
+	
+	<style type="text/css" media="screen">
+	html {
+		font-family: Helvetica;
+	}
+	
+	h1 {
+		font-size: 2em;
+		text-align: center;
+		padding: 10px;
+	}
+	
+	h2 {
+		color: #fff;
+		background-color: #666;
+		padding: 10px;
+		margin-top: 10px;
+		
+	}
+	
+	h3 {
+		font-size: 1em;
+		font-style: italic;
+		color: #999;
+	}
+	
+	#chart {
+		height: 350px;
+	}
+	
+	#current_temp {
+	}
+	
+	#current_temp_circle {
+		display: table-cell;
+		text-align: center;
+		vertical-align: middle;
+		height: 140px;
+		width: 140px;
+		border-radius: 140px;
+		border: 1px solid #000;
+	}
+	
+	#temp_container {
+		margin: 10px 0;
+	}
+	
+	</style>
+</head>
+<body>
+
+<div class="container_12">
+	<div class="grid_12"><h1>Heading</h1></div>
+	<div class="grid_12"><h3>Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae dui tellus. Phasellus erat ligula, hendrerit vel congue in, rutrum nec nulla. Nunc eget purus velit. Vestibulum interdum diam ut purus scelerisque at feugiat ante auctor. Morbi sit amet dolor ac risus adipiscing tincidunt. Ut convallis gravida nisl sit amet interdum. Aliquam hendrerit magna est. Proin pharetra venenatis ipsum quis dictum. Nam eget metus ipsum. Sed nec mattis nisi. Etiam id urna ante. Nulla facilisi. Nulla cursus iaculis egestas. Sed mollis varius fermentum.</h3></div>
+	
+	<div class="grid_12"><h2>Current Batch - Matt's Pilsner</h2></div>
+		
+	<div id="current_stats" class="grid_6">	
+		<div class="grid_2 prefix_2 suffix_2 alpha omega">
+			<div id="temp_container">
+				<div id="current_temp_circle">
+					<div id="current_temp">9.4 °C</div>
+				</div>
+			</div>
+		</div><br class="clear" />
+			
+		<p>Phase #2: Primary fermentation</p>
+		<p>Current: 9.4°</p>
+		<p>Status: Cooling on</p>
+		<p>Target: 9.0°</p>
+		<p>Elapsed time: 2 days, 4 hours</p>
+	</div>
+		
+	<div id="chart" class="grid_6"></div>
+		
+	<div class="grid_12"><h2>Completed Batches</h2></div>
+		
+	<div class="grid_3">
+		<h4>Name 1</h4>
+		<p>Date: 20/09/12</p>
+		<p>Fixed: 19°</p>
+	</div>
+		
+	<div class="grid_3">
+		<h4>Name 2</h4>
+		<p>Date: 20/09/12</p>
+		<p>Schedule: 4°-19° (14 days)</p>
+	</div>
+		
+	<div class="grid_3">
+		<h4>Name 3</h4>
+		<p>Date: 20/09/12</p>
+		<p>Fixed: 19°</p>
+	</div>
+		
+	<div class="grid_3">
+		<h4>Name 4</h4>
+		<p>Date: 20/09/12</p>
+		<p>Fixed: 19°</p>
+	</div>
+	
+</div>	
+
+</body>
+</html>

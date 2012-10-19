@@ -14,8 +14,11 @@
 	<script type="text/javascript" src="minute_data.js"></script>
 	<script type="text/javascript">
 
+	var test_data = [[1,1],[2,2],[3,3],[4,4],[5,5]];
+
 	$(document).ready(function() {
 		
+		/* ** zoomable **
 		targetPlot = $.jqplot('chart1',  [minute_data], {
 			title:'Graph Test',
 			axesDefaults: {
@@ -122,11 +125,59 @@
 				location: 'se'
 			}
 		});
-		
 		$.jqplot.Cursor.zoomProxy(targetPlot, controllerPlot);
 		$.jqplot._noToImageButton = true;
 
+		*/
+		
+		plot = $.jqplot('chart3',  [test_data], {
+			title:'Graph Test',
+			axes:{ 
+				yaxis:{
+					min: 0,
+					label: 'Y Axis',
+					labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+				},
+				xaxis: {
+					label: 'X Axis',
+					//renderer:$.jqplot.DateAxisRenderer,
+			        //tickOptions:{formatString:'%#d %b'},
+			        //min:'18 Oct 2012',
+			        //tickInterval:'1 day'
+				}
+			},
+			series:[
+				{
+					label: 'Actual',
+					lineWidth: 1,
+					color:'#f00',
+					showMarker: false
+				}
+			],
+			legend: {
+				show: true,
+				location: 'se'
+			}
+		});
+		
+		$("#add_point").click(function() {
+			add_point();
+		});
 	});
+	
+	function add_point() {
+		//if ($("#new_point_y").val().length < 1 || $("#new_point_x").val().length < 1) { return false };
+		
+		var temp_array = [];
+		temp_array.push(parseInt($("#new_point_y").val()));
+		temp_array.push(parseInt($("#new_point_x").val()));
+		test_data.push(temp_array);
+		plot.series[0].data = test_data;
+		plot.resetAxesScale();
+		plot.replot();
+		plot.resetAxesScale();
+		plot.replot();
+	}
 	
 	</script>
 
@@ -188,6 +239,11 @@
 	 #chart2 {
 		height:200px;
 		width: 940px;
+	}	
+	
+	 #chart3 {
+		height:400px;
+		width: 940px;
 	}
 	
 	</style>
@@ -197,8 +253,14 @@
 <div id="page_container">
 	<h1>Zoomable Graph Test</h1>
 	
+	<!-- ZOOMABLE 
 	<div id="chart1"></div>
 	<div id="chart2"></div>
+	-->
+	
+	<!-- ADDING POINTS -->
+	<div id="chart3"></div>
+	<div><input type="text" id="new_point_y"><input type="text" id="new_point_x"><input type="button" value="Add" id="add_point"></div>
 	
 </div>	
 

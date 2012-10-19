@@ -17,6 +17,27 @@ h2 {
 }
 
 h3 {
+	color: #fff;
+	background-color: #999;
+	text-align: center;
+	padding: 5px 0;
+}
+
+.completed_phase {
+	color: #ccc;
+	font-style: italic;
+	text-decoration: line-through;
+}
+
+.current_phase {
+	font-weight: bold;
+}
+
+.future_phase {
+	color: #999;
+}
+
+.intro_text {
 	font-size: 1em;
 	font-style: italic;
 	color: #999;
@@ -26,9 +47,6 @@ h3 {
 	height: 350px;
 }
 
-#current_temp {
-}
-
 #current_temp_circle {
 	display: table-cell;
 	text-align: center;
@@ -36,6 +54,21 @@ h3 {
 	height: 140px;
 	width: 140px;
 	border-radius: 140px;
+}
+
+.temp_cooling {
+	color: #fff;
+	border: 1px solid #0101DF;
+	background-color: #5882FA;
+}
+
+.temp_heating {
+	color: #fff;
+	border: 1px solid #FF0000;
+	background-color: #F78181;
+}
+
+.temp_stable {
 	border: 1px solid #000;
 }
 

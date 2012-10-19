@@ -17,7 +17,7 @@
 	$(document).ready(function() {
 		
 		targetPlot = $.jqplot('chart1',  [minute_data], {
-			title:'Matt\'s Pilsner',
+			title:'Graph Test',
 			axesDefaults: {
 				useSeriesColor: true,
 				rendererOptions: {
@@ -32,11 +32,11 @@
 			axes:{ 
 				yaxis:{
 					min: 0,
-					label: 'Temp (°C)',
+					label: 'Y Axis',
 					labelRenderer: $.jqplot.CanvasAxisLabelRenderer
 				},
 				xaxis: {
-					label: 'Days',
+					label: 'X Axis',
 					renderer:$.jqplot.DateAxisRenderer,
 			        tickOptions:{formatString:'%#d %b'},
 			        min:'18 Oct 2012',
@@ -86,11 +86,11 @@
 				yaxis:{
 					min: 0,
 					max: 12,
-					label: 'Temp (°C)',
+					label: 'Y Axis',
 					labelRenderer: $.jqplot.CanvasAxisLabelRenderer
 				},
 				xaxis: {
-					label: 'Days',
+					label: 'X Axis',
 					renderer:$.jqplot.DateAxisRenderer,
 			        tickOptions:{formatString:'%#d %b'},
 			        min:'18 Oct 2012',

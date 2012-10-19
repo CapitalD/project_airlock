@@ -15,30 +15,59 @@
 	<link rel="stylesheet" href="stylesheets/960.css">
 	<link rel="stylesheet" href="stylesheets/jquery.jqplot.min.css">
 	<link rel="stylesheet" href="stylesheets/airlock.css">
+	
+	<script type="text/javascript" charset="utf-8">
+		$(document).ready(function() {
+			$('<div id="demo_panel"><p>Demo Panel</p><input type="button" value="Start Heating" id="demo_heat" /><br /><input type="button" value="Start Cooling" id="demo_cool"><br /><input type="button" value="Reset" id="demo_reset"></div>').appendTo("body");
+			$('<style type="text/css">#demo_panel { position: absolute; top: 10px; left: 10px; padding: 10px; border: 1px solid #000; }</style>').appendTo("head");
+			$("#demo_heat").click(function() {
+				start_heating();
+			});
+			$("#demo_cool").click(function() {
+				start_cooling();
+			});
+
+			$("#demo_reset").click(function() {
+				$("#current_temp_circle").removeAttr("class");
+				$("#current_temp_circle").addClass("temp_stable");
+			});
+		});
+	</script>
+	
 
 </head>
 <body>
 
 <div class="container_12">
 	<div class="grid_12"><h1>Heading</h1></div>
-	<div class="grid_12"><h3>Description Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas vitae dui tellus. Phasellus erat ligula, hendrerit vel congue in, rutrum nec nulla. Nunc eget purus velit. Vestibulum interdum diam ut purus scelerisque at feugiat ante auctor. Morbi sit amet dolor ac risus adipiscing tincidunt. Ut convallis gravida nisl sit amet interdum. Aliquam hendrerit magna est. Proin pharetra venenatis ipsum quis dictum. Nam eget metus ipsum. Sed nec mattis nisi. Etiam id urna ante. Nulla facilisi. Nulla cursus iaculis egestas. Sed mollis varius fermentum.</h3></div>
+	<div class="grid_12"><p class="intro_text">Introduction text</p></div>
 	
-	<div class="grid_12"><h2>Current Batch - Matt's Pilsner</h2></div>
+	<div class="grid_12"><h2>Current Batch - [name]</h2></div>
 		
 	<div id="current_stats" class="grid_6">	
 		<div class="grid_2 prefix_2 suffix_2 alpha omega">
 			<div id="temp_container">
-				<div id="current_temp_circle">
+				<div id="current_temp_circle" class="temp_stable">
 					<div id="current_temp">9.4 °C</div>
 				</div>
 			</div>
-		</div><br class="clear" />
-			
-		<p>Phase #2: Primary fermentation</p>
-		<p>Current: 9.4°</p>
-		<p>Status: Cooling on</p>
-		<p>Target: 9.0°</p>
-		<p>Elapsed time: 2 days, 4 hours</p>
+		</div>
+
+			<div class="grid_3 alpha">
+				<h3>Current Stats</h3>
+				<p>Target: 9°C</p>
+				<p>Difference: +0.4°C</p>
+				<p>Last cooling: 8 mins</p>
+				<p>Last heating: 1 day, 2 hours</p>
+			</div>
+		
+		<div class="grid_3 omega">
+			<h3>Phases</h3>
+			<p class="completed_phase">1: Pre-pitch</p>
+			<p class="current_phase">2: Primary Fermentation</p>
+			<p class="future_phase">3: Secondary Fermentation</p>
+			<p class="future_phase">4: Crash cool</p>
+		</div>
 	</div>
 		
 	<div id="chart" class="grid_6"></div>
